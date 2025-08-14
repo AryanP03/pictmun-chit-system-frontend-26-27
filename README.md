@@ -1,69 +1,61 @@
-# React + TypeScript + Vite
+# Project Conventions & Contribution Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Folder Structure & Naming Conventions
 
-Currently, two official plugins are available:
+- **All file names must use kebab-case** (e.g., `my-component.tsx`, `home-page.tsx`, `admin-layout.tsx`).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  - This applies to pages, components, layouts, hooks, stores, and utility files.
+  - Avoid PascalCase, camelCase, or snake_case for file names.
 
-## Expanding the ESLint configuration
+- **Pages** (`src/pages/`):
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  - Each file represents a route/page (e.g., `home-page.tsx`).
+  - Export a default React component.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Components** (`src/components/`):
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+  - Reusable UI elements.
+  - Use PascalCase for component names inside files, but file names must be kebab-case (e.g., `user-card.tsx`).
+  - Group related components in folders if needed.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Layouts** (`src/layouts/`):
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+  - Layout wrappers for pages (e.g., `admin-layout.tsx`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Hooks** (`src/hooks/`):
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+  - Custom React hooks (e.g., `use-auth.ts`).
+
+- **Store/State** (`src/store/`):
+
+  - State management logic (e.g., `user-store.ts`).
+
+- **Lib/Utils** (`src/lib/`):
+
+  - Utility functions and helpers (e.g., `format-date.ts`).
+
+- **UI Library** (`src/components/ui/`):
+  - Atomic UI components (e.g., `button.tsx`, `input.tsx`).
+
+## General Naming Guidelines
+
+- **Components:** PascalCase (e.g., `MyComponent`)
+- **Files/Folders:** kebab-case (e.g., `user-profile.tsx`, `admin-layout.tsx`)
+- **Variables/Functions:** camelCase
+- **Constants/Enums:** UPPER_SNAKE_CASE
+
+## How to Contribute
+
+1. **Fork the repository** and clone your fork.
+2. **Create a new branch** for your feature or bugfix:
+   ```sh
+   git checkout -b your-name
+   ```
+3. **Follow the conventions above** for naming and structure.
+4. **Write clear, concise commit messages.**
+5. **Test your changes locally.**
+6. **Push your branch** and open a Pull Request (PR) to the `main` branch.
+
+---
+
+For questions, open an issue or contact the maintainers.
