@@ -54,10 +54,9 @@ const ChitModal = ({
             key={index}
             className="flex flex-col justify-start mb-2 pb-2 border-b-2 border-b-muted"
           >
-            {/* Message Header -> Sender Details */}
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <div className="rounded-full size-12 bg-slate-200 dark:bg-slate-800 text-primary font-bold flex items-center justify-center text-lg">
+                <div className="rounded-full size-12 bg-primary/10 dark:bg-primary/20 text-primary font-bold flex items-center justify-center text-lg">
                   {message?.sender?.portfolio?.charAt(0)}
                 </div>
                 <p className="font-semibold text-lg">
@@ -68,7 +67,6 @@ const ChitModal = ({
                 {formatMessageTime(message?.createdAt)}
               </div>
             </div>
-            {/* Message Body */}
             <div className="mt-1">
               <p className="text-lg">{message?.body}</p>
             </div>
