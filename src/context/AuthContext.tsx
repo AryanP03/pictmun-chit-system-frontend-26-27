@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/lib/axiosInstance";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 type AuthUserType = {
@@ -31,12 +32,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchAuthUser = async () => {
       try {
-        const res = await fetch("/api/auth/me");
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error(data.error);
-        }
-        setAuthUser(data);
+        const res = await axiosInstance.get("/auth/me");
+        // if (!res.data.success) {
+        //   throw new Error(res.data.error);
+        // }
+        setAuthUser(res.data);
       } catch (error: any) {
         console.error(error);
       } finally {
