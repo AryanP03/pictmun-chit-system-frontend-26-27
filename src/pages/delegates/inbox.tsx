@@ -125,7 +125,7 @@ const ListItem: React.FC<ListItemProps> = ({ conversation }) => {
         to={`/chit/${conversation.id}`}
         className="flex items-center p-4 hover:bg-muted cursor-pointer"
       >
-        <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-primary font-bold mr-4">
+        <div className="w-10 h-10 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center text-primary font-bold mr-4">
           {latestMessage?.sender?.portfolio?.charAt(0) || "?"}
         </div>
 
