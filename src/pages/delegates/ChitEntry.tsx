@@ -43,6 +43,7 @@ const ChitEntry = () => {
   };
 
   return (
+    <div className="flex justify-center mt-10 md:mt-20 lg:mt-32" >
     <Card className="max-w-xl w-full border-0 shadow-none rounded-lg p-4">
       <CardHeader>
         <CardTitle className="text-2xl md:text-3xl font-semibold mb-2">
@@ -123,6 +124,7 @@ const ChitEntry = () => {
         </CardFooter>
       </form>
     </Card>
+    </div>
   );
 };
 
