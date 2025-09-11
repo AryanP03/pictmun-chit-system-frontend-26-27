@@ -24,59 +24,76 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Ensure CAPTCHA is verified
     if (!captchaToken) {
       alert("Please verify you are not a robot!");
       return;
     }
 
-    // Pass username, password, and captchaToken to the login function
     login(username, password, captchaToken);
   };
 
   return (
-    <Card className="flex flex-col md:ml-[36%] mt-[6%] mx-auto gap-3 p-6 max-w-lg w-[100%] rounded-md">
-      <CardHeader>
-        <CardTitle className="text-2xl text-center">Login</CardTitle>
-      </CardHeader>
+    <div className="flex min-h-screen">
+      {/* Left Section - Image */}
+      <div className="w-full hidden md:flex items-center justify-center bg-oklch(0.1994 0.0390 21.1753)">
+        <img
+          src="/login-side-image.png"
+          alt="Login Illustration"
+          className="object-cover w-50px h-100px"
+        />
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <CardContent className="flex flex-col gap-4 w-full">
-          <div>
-            <Label htmlFor="username">Username</Label>
-            <Input
-              placeholder="Enter your username..."
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="p-2 border border-primary"
-            />
-          </div>
+      {/* Right Section - Login Form */}
+      <div className="w-full md:w-1/2 flex items-center justify-center px-6">
+        <Card className="w-full max-w-md p-6 gap-3 rounded-md shadow-md">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Login</CardTitle>
+          </CardHeader>
 
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input
-              placeholder="Enter your Password..."
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="p-2 border border-primary"
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <CardContent className="flex flex-col gap-4 w-full">
+              <div>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  placeholder="Enter your username..."
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="p-2 border border-primary"
+                />
+              </div>
 
-          {/* CAPTCHA */}
-          <CaptchaWidget onVerify={setCaptchaToken} />
-        </CardContent>
+              <div>
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  placeholder="Enter your Password..."
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="p-2 border border-primary"
+                />
+              </div>
 
-        <CardFooter>
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </Button>
-        </CardFooter>
-      </form>
-    </Card>
+              {/* CAPTCHA */}
+              
+               <div className="flex justify-center w-full">
+              <div className="w-full max-w-sm">
+               <CaptchaWidget onVerify={setCaptchaToken} />
+               </div>
+               </div>
+            </CardContent>
+
+            <CardFooter>
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
+      </div>
+    </div>
   );
 };
 
