@@ -6,7 +6,7 @@
 
   - This applies to pages, components, layouts, hooks, stores, and utility files.
   - Avoid PascalCase, camelCase, or snake_case for file names.
-
+ minor change for deployment
 - **Pages** (`src/pages/`):
 
   - Each file represents a route/page (e.g., `home-page.tsx`).
