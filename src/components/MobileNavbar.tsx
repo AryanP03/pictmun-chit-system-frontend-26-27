@@ -10,7 +10,7 @@ import {
 } from "./ui/sheet";
 import { useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import LogoutButton from "./LogoutButton";
+
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -63,7 +63,7 @@ export const MobileNavbar = () => {
         </SheetHeader>
 
         <SheetDescription className="py-8 h-screen">
-          <ul className="flex flex-col items-start gap-5">
+          <ul className="mt-20 flex flex-col items-start gap-5">
             {authUser?.role == "DELEGATE" &&
               sidebarLinks.slice(0, 3).map((link, index) => (
                 <li
@@ -117,24 +117,6 @@ export const MobileNavbar = () => {
               </li>
             )}
           </ul>
-          <div className="mt-56 flex flex-col gap-3">
-            <div className="flex items-center justify-start w-full bg-muted py-1 px-2 rounded-full gap-2">
-              <div className="size-10 flex items-center justify-center fonr-bold text-2xl bg-slate-200 dark:bg-slate-800 rounded-full">
-                {authUser?.portfolio.charAt(0).toUpperCase()}
-              </div>
-              <div className="flex flex-col gap-0">
-                <p className="font-semibold text-lg">
-                  {authUser?.portfolio && authUser?.portfolio.length > 10
-                    ? authUser?.portfolio.substring(0, 20) + "..."
-                    : authUser?.portfolio}
-                </p>
-                <p className="text-sm text-muted-foreground uppercase">
-                  {authUser?.committee}
-                </p>
-              </div>
-            </div>
-            <LogoutButton classList="w-full" />
-          </div>
         </SheetDescription>
       </SheetContent>
     </Sheet>

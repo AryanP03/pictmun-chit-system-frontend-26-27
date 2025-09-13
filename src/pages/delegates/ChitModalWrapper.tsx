@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ChitModal from "./ChitModal";
 import { useGetChit } from "../../hooks/useGetChit";
 import { Loading } from "../../components/Loading";
@@ -12,9 +12,16 @@ const ChitModalWrapper: React.FC = () => {
   const { loading, chit, updateChit } = useGetChit(id!);
   const { socket } = useSocketContext();
   const { addMessageToConversation } = useConversation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!socket || !id || !chit?.messages?.[0]?.conversationId) return;
+    if (
+      !socket ||
+      !id ||
+      !chit?.messages?.[0]?.conversationId ||
+      chit.messages.length === 0
+    )
+      return;
 
     const conversationId = chit.messages[0].conversationId;
 
@@ -59,10 +66,9 @@ const ChitModalWrapper: React.FC = () => {
     };
   }, [socket, id, chit?.messages, updateChit]); // ... existing code ...
   if (loading) return <Loading classes="w-full h-full" />;
-  if (!id) {
-    return (
-      <div className="text-red-500">Invalid chit ID. Please try again.</div>
-    );
+  // if (!chit) return <NoMessage />;
+  if (!id || chit?.messages.length === 0) {
+    navigate("/");
   }
   if (!chit) {
     return <NoMessage />;

@@ -32,6 +32,7 @@ const ChitEntry = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      console.log({ message, isViaEb, recipientId });
       await sendChit(message, isViaEb, recipientId);
       navigate("/");
     } catch (error) {
@@ -43,87 +44,93 @@ const ChitEntry = () => {
   };
 
   return (
-    <div className="flex justify-center mt-10 md:mt-20 lg:mt-32" >
-    <Card className="max-w-xl w-full border-0 shadow-none rounded-lg p-4">
-      <CardHeader>
-        <CardTitle className="text-2xl md:text-3xl font-semibold mb-2">
-          New Chit
-        </CardTitle>
-      </CardHeader>
+    <div className="flex justify-start px-6 md:px-12 lg:px-16 mt-8 md:mt-12 lg:mt-16">
+      <Card className="max-w-2xl w-full bg-transparent border-0 shadow-none p-0">
+        <CardHeader className="px-0 pb-6">
+          <CardTitle className="text-2xl md:text-3xl font-bold text-foreground">
+            New Chit
+          </CardTitle>
+        </CardHeader>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-        {/* Recipient Dropdown */}
-        <CardContent className="flex flex-col gap-3">
-          <div className="flex items-center gap-3 mb-2">
-            <Checkbox
-              id="via-eb"
-              className="size-5"
-              checked={isViaEb}
-              onCheckedChange={() => setIsViaEb(!isViaEb)}
-            />
-            <Label htmlFor="via-eb" className="text-lg">
-              Send message via EB
-            </Label>
-          </div>
-          <div className="mb-4">
-            <Label
-              htmlFor="recipient"
-              className="block  mb-2 text-base font-medium text-muted-foreground"
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <CardContent className="px-0 space-y-6">
+            {/* Via EB Checkbox */}
+            <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg border-l-4 border-l-primary">
+              <Checkbox
+                id="via-eb"
+                className="size-5"
+                checked={isViaEb}
+                onCheckedChange={() => setIsViaEb(!isViaEb)}
+              />
+              <Label
+                htmlFor="via-eb"
+                className="text-base font-medium cursor-pointer"
+              >
+                Send message via EB
+              </Label>
+            </div>
+
+            {/* Recipient Selection */}
+            <div className="space-y-2">
+              <Label
+                htmlFor="recipient"
+                className="text-base font-semibold text-foreground"
+              >
+                Recipient
+              </Label>
+              <Select onValueChange={setRecipientId} value={recipientId}>
+                <SelectTrigger className="h-12 text-base">
+                  <SelectValue
+                    className="w-full"
+                    placeholder={
+                      recipientsLoading
+                        ? "Loading recipients..."
+                        : "Select a recipient"
+                    }
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {recipients.map((user: any) => (
+                    <SelectItem key={user.id} value={user.id}>
+                      {user.portfolio}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Message */}
+            <div className="space-y-2">
+              <Label
+                htmlFor="message"
+                className="text-base font-semibold text-foreground"
+              >
+                Message
+              </Label>
+              <Textarea
+                id="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+                rows={6}
+                placeholder="Enter your message..."
+                className="min-h-32 resize-none p-4 text-base leading-relaxed"
+              />
+            </div>
+          </CardContent>
+
+          <CardFooter className="px-0 pt-6">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              size="lg"
+              className="text-base px-8 py-3 font-semibold min-w-40 md:w-full"
             >
-              Recipient
-            </Label>
-            <Select onValueChange={setRecipientId} value={recipientId}>
-              <SelectTrigger className="">
-                <SelectValue
-                  placeholder={
-                    recipientsLoading
-                      ? "Loading recipients..."
-                      : "Select a recipient"
-                  }
-                />
-              </SelectTrigger>
-              <SelectContent>
-                {recipients.map((user: any) => (
-                  <SelectItem key={user.id} value={user.id}>
-                    {user.portfolio}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Message */}
-          <div className="mb-4">
-            <Label
-              htmlFor="message"
-              className="block  mb-2 text-base font-medium text-muted-foreground"
-            >
-              Message
-            </Label>
-            <Textarea
-              id="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-              rows={5}
-              placeholder="Enter your message..."
-              className="max-h-80 resize-x-none p-3 border border-gray-300 rounded-md "
-            />
-          </div>
-        </CardContent>
-
-        <CardFooter className="flex justify-between items-center gap-3">
-          <Button
-            type="submit"
-            disabled={isLoading}
-            size={"lg"}
-            className="text-base w-full md:w-fit"
-          >
-            {isLoading ? "Sending..." : "Submit Chit"}
-          </Button>
-        </CardFooter>
-      </form>
-    </Card>
+              {isLoading ? "Sending..." : "Submit Chit"}
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   );
 };

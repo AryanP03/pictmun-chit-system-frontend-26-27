@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { ModeToggle } from "./ui/mode-toggle";
 import LogoutButton from "./LogoutButton";
+import { MobileNavbar } from "./MobileNavbar";
 
 export const Topbar = () => {
   const { authUser } = useAuthContext();
@@ -41,13 +42,14 @@ export const Topbar = () => {
                   </p>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="focus:bg-transparent">
                 <LogoutButton classList="w-full" />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )}
         <ModeToggle />
+        <MobileNavbar />
       </div>
     </div>
   );

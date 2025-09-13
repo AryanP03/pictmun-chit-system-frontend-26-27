@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
+
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
@@ -45,48 +46,58 @@ const Login = () => {
 
       {/* Right Section - Login Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center px-6">
-        <Card className="w-full max-w-md p-6 gap-3 rounded-md shadow-md">
+        <Card className="w-full max-w-md lg:max-w-lg xl:max-w-xl p-6 gap-3 rounded-md">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">Login</CardTitle>
+            <CardTitle className="text-2xl lg:text-3xl text-center">
+              Login
+            </CardTitle>
           </CardHeader>
 
           <form onSubmit={handleSubmit}>
             <CardContent className="flex flex-col gap-4 w-full">
               <div>
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username" className="lg:text-lg">
+                  Username
+                </Label>
                 <Input
                   placeholder="Enter your username..."
                   id="username"
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="p-2 border border-primary"
+                  className="p-2 lg:p-3 lg:text-lg border border-primary"
                 />
               </div>
 
               <div>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="lg:text-lg">
+                  Password
+                </Label>
                 <Input
                   placeholder="Enter your Password..."
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="p-2 border border-primary"
+                  className="p-2 lg:p-3 lg:text-lg border border-primary"
                 />
               </div>
 
               {/* CAPTCHA */}
-              
-               <div className="flex justify-center w-full">
-              <div className="w-full max-w-sm">
-               <CaptchaWidget onVerify={setCaptchaToken} />
-               </div>
-               </div>
+
+              <div className="flex justify-center w-full">
+                <div className="w-full max-w-sm">
+                  <CaptchaWidget onVerify={setCaptchaToken} />
+                </div>
+              </div>
             </CardContent>
 
             <CardFooter>
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button
+                type="submit"
+                className="w-full lg:text-lg lg:py-3"
+                disabled={loading}
+              >
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </CardFooter>
