@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { formatMessageTime } from "../../lib/utils";
 import { useSentConversation } from "../../hooks/useFetchSentMessages";
@@ -79,7 +79,8 @@ const SentMessages = () => {
               <div className="flex-1">
                 <div className="flex justify-between">
                   <span className="font-semibold text-primary text-xl">
-                    {conversation.messages[0]?.sender?.portfolio || "Unknown Sender"}
+                    {conversation.messages[0]?.sender?.portfolio ||
+                      "Unknown Sender"}
                   </span>
                   <span className="text-xs text-muted-foreground">
                     {formatMessageTime(conversation.messages[0]?.createdAt)}
