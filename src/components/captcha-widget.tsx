@@ -12,14 +12,14 @@ export default function CaptchaWidget({ onVerify }: CaptchaWidgetProps) {
     setVerified(!!token);
     onVerify(token);
   };
-  if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
-    return null;
-  }
+  // if (!import.meta.env.VITE_RECAPTCHA_SITE_KEY) {
+  //   return null;
+  // }
 
   return (
     <div className="my-4">
       <ReCAPTCHA
-        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY as string}
+        sitekey={"6LcIvsMrAAAAAEIVXQUY_aGYg0OMVA6RgF-rZaCt"}
         onChange={handleChange}
       />
       {verified ? (
