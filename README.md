@@ -3,7 +3,7 @@
 ## Folder Structure & Naming Conventions
 
 - **All file names must use kebab-case** (e.g., `my-component.tsx`, `home-page.tsx`, `admin-layout.tsx`).
-
+m,lcfmdf,
   - This applies to pages, components, layouts, hooks, stores, and utility files.
   - Avoid PascalCase, camelCase, or snake_case for file names.
  minor change for deployment
