@@ -8,6 +8,7 @@
   - Avoid PascalCase, camelCase, or snake_case for file names.
  minor change for deployment
 - **Pages** (`src/pages/`):
+- some change
 
   - Each file represents a route/page (e.g., `home-page.tsx`).
   - Export a default React component.
