@@ -1,7 +1,7 @@
 changefordeploy# Project Conventions & Contribution Guide
 
 ## Folder Structure & Naming Conventions
-
+lets gp
 - **All file names must use kebab-case** (e.g., `my-component.tsx`, `home-page.tsx`, `admin-layout.tsx`).
 m,lcfmdf,
   - This applies to pages, components, layouts, hooks, stores, and utility files.
