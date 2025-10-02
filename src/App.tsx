@@ -10,6 +10,7 @@ import { Topbar } from "./components/Topbar";
 import BoardModal from "./pages/eb/EBModal";
 import BoardInbox from "./pages/eb/BoardInbox";
 import CreateEntries from "./pages/admin/CreateEntries";
+import CsvUpload from "./pages/admin/CsvUpload";
 import { Sidebar } from "./components/Sidebar";
 import { Loading } from "./components/Loading";
 import SentMessages from "./pages/delegates/SentMessages";
@@ -89,6 +90,16 @@ const App: React.FC = () => {
                 element={
                   authUser && authUser.role === "ADMIN" ? (
                     <CreateEntries />
+                  ) : (
+                    <Navigate to="/login" />
+                  )
+                }
+              />
+              <Route
+                path="/csv-upload"
+                element={
+                  authUser && authUser.role === "ADMIN" ? (
+                    <CsvUpload />
                   ) : (
                     <Navigate to="/login" />
                   )

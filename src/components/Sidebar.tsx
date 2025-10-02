@@ -1,5 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { ChartBarIncreasing, Mail, Plus, Send } from "lucide-react";
+import {
+  ChartBarIncreasing,
+  Mail,
+  Plus,
+  Send,
+  Upload,
+  UserPlus,
+} from "lucide-react";
 import { useAuthContext } from "../context/AuthContext";
 
 export const Sidebar = () => {
@@ -29,6 +36,16 @@ export const Sidebar = () => {
       path: "/marks",
       icon: <ChartBarIncreasing className="size-5" />,
     },
+    {
+      name: "Create User",
+      path: "/create-user",
+      icon: <UserPlus className="size-5" />,
+    },
+    {
+      name: "CSV Upload",
+      path: "/csv-upload",
+      icon: <Upload className="size-5" />,
+    },
   ];
   const { authUser } = useAuthContext();
   const url = useLocation().pathname;
@@ -55,6 +72,24 @@ export const Sidebar = () => {
 
         {authUser?.role == "EB" &&
           sidebarLinks.slice(3, 5).map((link, index) => (
+            <li
+              key={index}
+              className={`${
+                url === link.path ? "bg-muted font-semibold" : ""
+              } text-lg text-primary p-3 rounded-lg w-full`}
+            >
+              <Link
+                to={link.path}
+                className="flex items-center justify-start gap-2"
+              >
+                {link.icon}
+                {link.name}
+              </Link>
+            </li>
+          ))}
+
+        {authUser?.role == "ADMIN" &&
+          sidebarLinks.slice(5, 7).map((link, index) => (
             <li
               key={index}
               className={`${
