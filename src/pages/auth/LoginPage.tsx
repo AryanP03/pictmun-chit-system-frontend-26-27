@@ -14,12 +14,13 @@ import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 
 import { useLogin } from "../../hooks/useLogin";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const { isLoading: loading, login } = useLogin();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,7 +57,7 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <CardContent className="flex flex-col gap-4 w-full">
               <div>
-                <Label htmlFor="username" className="lg:text-lg">
+                <Label htmlFor="username" className="lg:text-lg mb-1">
                   Username
                 </Label>
                 <Input
@@ -70,17 +71,27 @@ const Login = () => {
               </div>
 
               <div>
-                <Label htmlFor="password" className="lg:text-lg">
+                <Label htmlFor="password" className="lg:text-lg mb-1">
                   Password
                 </Label>
-                <Input
-                  placeholder="Enter your Password..."
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="p-2 lg:p-3 lg:text-lg border border-primary"
-                />
+                <div className="relative">
+                  <Input
+                    placeholder="Enter your Password..."
+                    id="password"
+                    type={passwordVisible ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="p-2 lg:p-3 lg:text-lg border border-primary"
+                  />
+                  <Button
+                    type="button"
+                    className="absolute right-0 top-1/2 border-l border-primary  -translate-y-1/2 rounded-l-none z-10 "
+                    onClick={() => setPasswordVisible(!passwordVisible)}
+                    size={"icon"}
+                  >
+                    {passwordVisible ? <EyeOff /> : <Eye />}
+                  </Button>
+                </div>
               </div>
 
               {/* CAPTCHA */}

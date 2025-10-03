@@ -18,15 +18,19 @@ export const useLogin = () => {
     password: string,
     captchaToken: string
   ) => {
-    if (!username || !password) {
+    if (!username.trim() || !password.trim()) {
       toast.error("All fields are required");
       return;
     }
 
-    if (!captchaToken) {
+    if (!captchaToken.trim()) {
       toast.error("Please verify you are not a robot!");
       return;
     }
+
+    username = username.trim();
+    password = password.trim();
+    captchaToken = captchaToken.trim();
 
     setIsLoading(true);
 
@@ -38,9 +42,20 @@ export const useLogin = () => {
       });
 
       if (!res.data.success) {
-        toast.error(res.data.message || "Error in login");
-        console.error(res.data.message);
-        return;
+        // toast.error(res.data.message || "Error in login");
+        // console.error(res.data.message);
+        // return;
+        if (res.status === 429) {
+          toast.error("Too many login attempts. Please try again later.");
+        } else if (res.status === 401) {
+          toast.error("Invalid username or password.");
+        } else if (res.status === 400) {
+          toast.error("ReCAPTCHA verification failed. Please try again.");
+        } else if (res.status === 404) {
+          toast.error("User not found. Please check your username.");
+        } else {
+          toast.error(res.data.message || "Error in login");
+        }
       }
 
       setAuthUser(res.data.user);

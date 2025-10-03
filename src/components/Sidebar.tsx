@@ -41,11 +41,6 @@ export const Sidebar = () => {
       path: "/create-user",
       icon: <UserPlus className="size-5" />,
     },
-    {
-      name: "CSV Upload",
-      path: "/csv-upload",
-      icon: <Upload className="size-5" />,
-    },
   ];
   const { authUser } = useAuthContext();
   const url = useLocation().pathname;
