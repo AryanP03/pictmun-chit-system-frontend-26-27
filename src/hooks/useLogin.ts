@@ -41,32 +41,27 @@ export const useLogin = () => {
         captchaToken, // send captcha token to backend
       });
 
-      // if (!res.data.success) {
-      // toast.error(res.data.message || "Error in login");
-      // console.error(res.data.message);
-      // return;
-      if (res.status === 429) {
-        toast.error("Too many login attempts. Please try again later.");
-        return;
-      } else if (res.status === 401) {
-        toast.error("Invalid username or password.");
-        return;
-      } else if (res.status === 400) {
-        toast.error("ReCAPTCHA verification failed. Please try again.");
-        return;
-      } else if (res.status === 404) {
-        toast.error("User not found. Please check your username.");
-        return;
-      } else {
+      if (!res.data.success) {
         toast.error(res.data.message || "Error in login");
+        console.error(res.data.message);
         return;
       }
-      // }
 
       setAuthUser(res.data.user);
       toast.success("Login success");
     } catch (error: any) {
       console.error(error);
+      if (error.status === 429) {
+        toast.error("Too many login attempts. Please try again later.");
+      } else if (error.status === 401) {
+        toast.error("Invalid username or password.");
+      } else if (error.status === 400) {
+        toast.error("ReCAPTCHA verification failed. Please try again.");
+      } else if (error.status === 404) {
+        toast.error("User not found. Please check your username.");
+      } else {
+        toast.error(error.data.message || "Error in login");
+      }
       toast.error(error.message || "Something went wrong");
     } finally {
       setIsLoading(false);
