@@ -3,6 +3,8 @@ hi
 lol
 chalo
 idk
+jfn
+lets test profile
 ## Folder Structure & Naming Conventions
 lets gp
 - **All file names must use kebab-case** (e.g., `my-component.tsx`, `home-page.tsx`, `admin-layout.tsx`).
