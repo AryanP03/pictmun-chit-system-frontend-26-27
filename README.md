@@ -1,4 +1,4 @@
-changefordeploy# Project Conventions & Contribution Guidelets gohmm it should work
+changefordeploy# Project Conventions & Contribution Guidelets gohmm it should workfordeploy
 
 ## Folder Structure & Naming Conventions
 lets gp
