@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { User } from "lucide-react";
@@ -18,27 +17,11 @@ const Profile = () => {
   }
 
   // Get first letter of portfolio for avatar fallback
-  const avatarFallback = authUser.portfolio
-    ? authUser.portfolio[0].toUpperCase()
-    : "U";
 
   return (
     <div className="flex  min-h-screen px-6 py-8">
       <Card className="w-full lg:max-w-lg p-4">
         <CardHeader className="text-center pb-6">
-          <div className="flex justify-center mb-4">
-            <Avatar className="size-20">
-              <AvatarImage
-                src={`https://api.dicebear.com/7.x/initials/svg?seed=${
-                  authUser.portfolio || authUser.username
-                }`}
-                alt={authUser.portfolio || authUser.username}
-              />
-              <AvatarFallback className="text-2xl lg:text-3xl font-bold">
-                {avatarFallback}
-              </AvatarFallback>
-            </Avatar>
-          </div>
           <CardTitle className="text-xl lg:text-2xl font-bold text-foreground">
             Profile
           </CardTitle>
