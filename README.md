@@ -3,6 +3,7 @@ hi
 lol
 chalo
 idk
+jfn
 lets test profile
 ## Folder Structure & Naming Conventions
 lets gp
