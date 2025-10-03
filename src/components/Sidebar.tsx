@@ -1,5 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { ChartBarIncreasing, Mail, Plus, Send, UserPlus } from "lucide-react";
+import {
+  ChartBarIncreasing,
+  Mail,
+  Plus,
+  Send,
+  Upload,
+  UserPlus,
+  User,
+} from "lucide-react";
 import { useAuthContext } from "../context/AuthContext";
 
 export const Sidebar = () => {
@@ -33,6 +41,16 @@ export const Sidebar = () => {
       name: "Create User",
       path: "/create-user",
       icon: <UserPlus className="size-5" />,
+    },
+    {
+      name: "CSV Upload",
+      path: "/csv-upload",
+      icon: <Upload className="size-5" />,
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: <User className="size-5" />,
     },
   ];
   const { authUser } = useAuthContext();
@@ -93,6 +111,23 @@ export const Sidebar = () => {
               </Link>
             </li>
           ))}
+
+        {/* Profile link for all authenticated users */}
+        {authUser && (
+          <li
+            className={`${
+              url === "/profile" ? "bg-muted font-semibold" : ""
+            } text-lg text-primary p-3 rounded-lg w-full mt-4 border-t border-muted-foreground/20 pt-4`}
+          >
+            <Link
+              to="/profile"
+              className="flex items-center justify-start gap-2"
+            >
+              <User className="size-5" />
+              Profile
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );

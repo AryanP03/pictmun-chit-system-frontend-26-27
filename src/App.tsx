@@ -10,6 +10,7 @@ import { Topbar } from "./components/Topbar";
 import BoardModal from "./pages/eb/EBModal";
 import BoardInbox from "./pages/eb/BoardInbox";
 import CreateEntries from "./pages/admin/CreateEntries";
+import Profile from "./pages/Profile";
 import { Sidebar } from "./components/Sidebar";
 import { Loading } from "./components/Loading";
 import SentMessages from "./pages/delegates/SentMessages";
@@ -93,6 +94,10 @@ const App: React.FC = () => {
                     <Navigate to="/login" />
                   )
                 }
+              />
+              <Route
+                path="/profile"
+                element={authUser ? <Profile /> : <Navigate to="/login" />}
               />
               <Route
                 path="/login"
