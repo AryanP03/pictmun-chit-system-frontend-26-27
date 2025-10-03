@@ -23,11 +23,11 @@ const Profile = () => {
     : "U";
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-80px)] px-6">
-      <Card className="w-full max-w-md lg:max-w-lg p-6 shadow-lg">
+    <div className="flex  min-h-screen px-6 py-8">
+      <Card className="w-full lg:max-w-lg p-4">
         <CardHeader className="text-center pb-6">
           <div className="flex justify-center mb-4">
-            <Avatar className="h-24 w-24 lg:h-32 lg:w-32">
+            <Avatar className="size-20">
               <AvatarImage
                 src={`https://api.dicebear.com/7.x/initials/svg?seed=${
                   authUser.portfolio || authUser.username
@@ -39,7 +39,7 @@ const Profile = () => {
               </AvatarFallback>
             </Avatar>
           </div>
-          <CardTitle className="text-2xl lg:text-3xl font-bold text-foreground">
+          <CardTitle className="text-xl lg:text-2xl font-bold text-foreground">
             Profile
           </CardTitle>
           <div className="w-16 h-1 bg-primary rounded-full mx-auto mt-2"></div>

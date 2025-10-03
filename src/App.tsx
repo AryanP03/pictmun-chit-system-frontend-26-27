@@ -95,10 +95,7 @@ const App: React.FC = () => {
                   )
                 }
               />
-              <Route
-                path="/profile"
-                element={authUser ? <Profile /> : <Navigate to="/login" />}
-              />
+              <Route path="/profile" element={<Profile />} />
               <Route
                 path="/login"
                 element={!authUser ? <Login /> : <Navigate to="/" />}
