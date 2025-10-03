@@ -1,6 +1,6 @@
 changefordeploy# Project Conventions & Contribution Guidelets gohmm it should workfordeploy
 lol
-
+chalo
 ## Folder Structure & Naming Conventions
 lets gp
 - **All file names must use kebab-case** (e.g., `my-component.tsx`, `home-page.tsx`, `admin-layout.tsx`).
