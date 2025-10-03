@@ -62,7 +62,6 @@ export const useLogin = () => {
       } else {
         toast.error(error.data.message || "Error in login");
       }
-      toast.error(error.message || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
