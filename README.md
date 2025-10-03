@@ -1,4 +1,4 @@
-changefordeploy# Project Conventions & Contribution Guide
+changefordeploy# Project Conventions & Contribution Guidelets go
 
 ## Folder Structure & Naming Conventions
 lets gp
