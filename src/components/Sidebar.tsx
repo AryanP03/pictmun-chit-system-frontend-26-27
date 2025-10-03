@@ -1,12 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import {
-  ChartBarIncreasing,
-  Mail,
-  Plus,
-  Send,
-  Upload,
-  UserPlus,
-} from "lucide-react";
+import { ChartBarIncreasing, Mail, Plus, Send, UserPlus } from "lucide-react";
 import { useAuthContext } from "../context/AuthContext";
 
 export const Sidebar = () => {
