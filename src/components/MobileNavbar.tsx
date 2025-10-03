@@ -1,4 +1,4 @@
-import { Mail, Menu, Send, Plus, ChartBarIncreasing } from "lucide-react";
+import { Mail, Menu, Send, Plus, ChartBarIncreasing, User } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -113,6 +113,23 @@ export const MobileNavbar = () => {
                 >
                   <Plus className="size-5" />
                   Create User
+                </Link>
+              </li>
+            )}
+            {/* Profile link for all authenticated users */}
+            {authUser && (
+              <li
+                className={`${
+                  url === "/profile" ? "bg-muted font-semibold" : ""
+                } text-lg  text-primary p-3 rounded-lg w-full`}
+              >
+                <Link
+                  to="/profile"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-start gap-2"
+                >
+                  <User className="size-5" />
+                  Profile
                 </Link>
               </li>
             )}

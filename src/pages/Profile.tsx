@@ -19,8 +19,8 @@ const Profile = () => {
   // Get first letter of portfolio for avatar fallback
 
   return (
-    <div className="flex  min-h-screen px-6 py-8">
-      <Card className="w-full lg:max-w-lg p-4">
+    <div className="flex w-full min-h-screen px-6 py-8">
+      <Card className="w-full mx-auto lg:max-w-lg p-4">
         <CardHeader className="text-center pb-6">
           <CardTitle className="text-xl lg:text-2xl font-bold text-foreground">
             Profile
