@@ -11,6 +11,7 @@ import {
 
 const MarksPage = () => {
   const { chitMarks, loading } = useGetAllChitMarks();
+  const sortedChits = chitMarks.sort();
   if (loading) {
     return <Loading classes="w-full h-full" />;
   }
@@ -33,7 +34,7 @@ const MarksPage = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {chitMarks?.map((chitMark: any) => (
+          {sortedChits?.map((chitMark: any) => (
             <TableRow key={chitMark.delegateId} className="py-2">
               <TableCell className="text-base ">{chitMark.portfolio}</TableCell>
               <TableCell className="text-base">
