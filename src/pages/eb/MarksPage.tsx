@@ -11,7 +11,9 @@ import {
 
 const MarksPage = () => {
   const { chitMarks, loading } = useGetAllChitMarks();
-  const sortedChits = chitMarks.sort();
+  const sortedChits = chitMarks.sort(
+    (a: any, b: any) => b.portfolio - a.portfolio
+  );
   if (loading) {
     return <Loading classes="w-full h-full" />;
   }
