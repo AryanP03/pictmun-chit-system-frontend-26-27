@@ -6,7 +6,7 @@ chalonmfnmfg
 jdnmd
 
 ## hei
-idk
+idk nice rhing
 jfn
 lets test profile
 ## Folder Structure & Naming Conventions
