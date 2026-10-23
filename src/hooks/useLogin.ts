@@ -11,26 +11,15 @@ export const useLogin = () => {
    * Login function
    * @param username - user's username
    * @param password - user's password
-   * @param captchaToken - token from Google reCAPTCHA
    */
-  const login = async (
-    username: string,
-    password: string,
-    captchaToken: string
-  ) => {
+  const login = async (username: string, password: string) => {
     if (!username.trim() || !password.trim()) {
       toast.error("All fields are required");
       return;
     }
 
-    if (!captchaToken.trim()) {
-      toast.error("Please verify you are not a robot!");
-      return;
-    }
-
     username = username.trim();
     password = password.trim();
-    captchaToken = captchaToken.trim();
 
     setIsLoading(true);
 
@@ -38,7 +27,6 @@ export const useLogin = () => {
       const res = await axiosInstance.post("/auth/login", {
         username,
         password,
-        captchaToken, // send captcha token to backend
       });
 
       if (!res.data.success) {

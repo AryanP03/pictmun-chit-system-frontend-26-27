@@ -7,7 +7,9 @@ interface ISocketContext {
   onlineUsers: string[];
 }
 const SocketContext = createContext<ISocketContext | undefined>(undefined);
-const socketUrl = import.meta.env.VITE_SOCKET_URL; //dev
+const socketUrl =
+  import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+
 
 const SocketContextProvider = ({ children }: { children: React.ReactNode }) => {
   const socketRef = useRef<Socket | null>(null);

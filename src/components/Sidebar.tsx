@@ -20,15 +20,15 @@ export const Sidebar = () => {
     {
       name: "Sent Chits",
       path: "/sent-chits",
-      icon: <Send />,
+      icon: <Send className="size-5" />,
     },
     {
       name: "Create a Chit",
       path: "/chit-entry",
-      icon: <Plus />,
+      icon: <Plus className="size-5" />,
     },
     {
-      name: "Inbox",
+      name: "EB Inbox",
       path: "/eb-board",
       icon: <Mail className="size-5" />,
     },
@@ -55,80 +55,62 @@ export const Sidebar = () => {
   ];
   const { authUser } = useAuthContext();
   const url = useLocation().pathname;
+
+  const renderLinkItem = (link: { name: string; path: string; icon: React.ReactNode }, index: number) => {
+    const isActive = url === link.path;
+    return (
+      <li key={index} className="w-full">
+        <Link
+          to={link.path}
+          className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border ${
+            isActive
+              ? "bg-[#174A3A] text-[#FFF4D6] border-[#A67C52]/60 shadow-[0_2px_12px_rgba(166,124,82,0.2)] font-semibold"
+              : "text-[#F2E9DB]/75 border-transparent hover:bg-[#174A3A]/40 hover:text-[#F2E9DB] hover:border-[#A67C52]/20"
+          }`}
+        >
+          <span className={isActive ? "text-[#FFF4D6]" : "text-[#A67C52]"}>
+            {link.icon}
+          </span>
+          {link.name}
+        </Link>
+      </li>
+    );
+  };
+
   return (
-    <div className="hidden sticky left-0 top-0 md:flex flex-col w-1/6 p-4 border-r h-[calc(100vh-40px)] max-h-[calc(100vh-40px)]">
-      <ul className="flex flex-col items-start gap-5">
-        {authUser?.role == "DELEGATE" &&
-          sidebarLinks.slice(0, 3).map((link, index) => (
-            <li
-              key={index}
-              className={`${
-                url === link.path ? "bg-muted font-semibold" : ""
-              } text-lg text-primary p-3 rounded-lg w-full`}
-            >
-              <Link
-                to={link.path}
-                className="flex items-center justify-start gap-2"
-              >
-                {link.icon}
-                {link.name}
-              </Link>
-            </li>
-          ))}
+    <aside className="hidden sticky left-0 top-[61px] md:flex flex-col w-64 p-5 bg-[#0B2B26] border-r border-[#A67C52]/30 h-[calc(100vh-61px)] max-h-[calc(100vh-61px)] shadow-xl justify-between">
+      <ul className="flex flex-col items-start gap-2.5 w-full">
+        <li className="px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#A67C52]/70">
+          Navigation
+        </li>
 
-        {authUser?.role == "EB" &&
-          sidebarLinks.slice(3, 5).map((link, index) => (
-            <li
-              key={index}
-              className={`${
-                url === link.path ? "bg-muted font-semibold" : ""
-              } text-lg text-primary p-3 rounded-lg w-full`}
-            >
-              <Link
-                to={link.path}
-                className="flex items-center justify-start gap-2"
-              >
-                {link.icon}
-                {link.name}
-              </Link>
-            </li>
-          ))}
+        {authUser?.role === "DELEGATE" &&
+          sidebarLinks.slice(0, 3).map((link, index) => renderLinkItem(link, index))}
 
-        {authUser?.role == "ADMIN" &&
-          sidebarLinks.slice(5, 7).map((link, index) => (
-            <li
-              key={index}
-              className={`${
-                url === link.path ? "bg-muted font-semibold" : ""
-              } text-lg text-primary p-3 rounded-lg w-full`}
-            >
-              <Link
-                to={link.path}
-                className="flex items-center justify-start gap-2"
-              >
-                {link.icon}
-                {link.name}
-              </Link>
-            </li>
-          ))}
+        {authUser?.role === "EB" &&
+          sidebarLinks.slice(3, 5).map((link, index) => renderLinkItem(link, index))}
 
-        {/* Profile link for all authenticated users */}
-        {authUser && (
-          <li
-            className={`${
-              url === "/profile" ? "bg-muted font-semibold" : ""
-            } text-lg text-primary p-3 rounded-lg w-full mt-4 border-t border-muted-foreground/20 pt-4`}
-          >
-            <Link
-              to="/profile"
-              className="flex items-center justify-start gap-2"
-            >
-              <User className="size-5" />
-              Profile
-            </Link>
-          </li>
-        )}
+        {authUser?.role === "ADMIN" &&
+          sidebarLinks.slice(5, 7).map((link, index) => renderLinkItem(link, index))}
       </ul>
-    </div>
+
+      {authUser && (
+        <div className="pt-4 border-t border-[#A67C52]/25">
+          <Link
+            to="/profile"
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all border ${
+              url === "/profile"
+                ? "bg-[#174A3A] text-[#FFF4D6] border-[#A67C52]/60 shadow-md font-semibold"
+                : "text-[#F2E9DB]/75 border-transparent hover:bg-[#174A3A]/40 hover:text-[#F2E9DB] hover:border-[#A67C52]/20"
+            }`}
+          >
+            <span className={url === "/profile" ? "text-[#FFF4D6]" : "text-[#A67C52]"}>
+              <User className="size-5" />
+            </span>
+            Profile
+          </Link>
+        </div>
+      )}
+    </aside>
   );
 };
