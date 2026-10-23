@@ -25,11 +25,11 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col pb-4 w-full">
+      <div className={`flex flex-col w-full min-h-screen bg-background ${authUser ? "pb-4" : ""}`}>
         <Topbar />
-        <div className="flex">
+        <div className="flex flex-1">
           {authUser && <Sidebar />}
-          <div className="w-full md:w-5/6">
+          <div className={authUser ? "w-full md:w-5/6" : "w-full"}>
             <Routes>
               <Route
                 path="/eb-board"
