@@ -4,8 +4,7 @@ import { useConversation } from "../zustand/useConversation";
 
 const useListenMessages = () => {
   const { socket } = useSocketContext();
-  const { setConversations, conversations, addMessageToConversation } =
-    useConversation();
+  const { setConversations, conversations } = useConversation();
 
   useEffect(() => {
     if (!socket) return;
@@ -95,16 +94,47 @@ const useListenMessages = () => {
       try {
         const parsedMessage = JSON.parse(message);
 
-        const findConv = conversations.find(
-          (conv: any) => conv.id === parsedMessage.conversationId
-        );
-        if (!findConv) {
-          setConversations((prevConversations: any[]) => [
-            ...prevConversations,
-            parsedMessage,
-          ]);
-        } else {
-          addMessageToConversation(parsedMessage.conversationId, parsedMessage);
+        // Case A: Payload is a conversation object with messages array
+        if (parsedMessage.messages && Array.isArray(parsedMessage.messages)) {
+          setConversations((prevConversations: any[]) => {
+            const index = prevConversations.findIndex(
+              (conv) => conv.id === parsedMessage.id
+            );
+            if (index !== -1) {
+              const updated = [...prevConversations];
+              updated[index] = {
+                ...updated[index],
+                ...parsedMessage,
+              };
+              return updated;
+            }
+            return [parsedMessage, ...prevConversations];
+          });
+        } else if (parsedMessage.conversationId && parsedMessage.id) {
+          // Case B: Payload is an individual message update { id, status, score, conversationId, ... }
+          setConversations((prevConversations: any[]) =>
+            prevConversations.map((conv) => {
+              if (
+                conv.id === parsedMessage.conversationId ||
+                conv.conversationId === parsedMessage.conversationId
+              ) {
+                const messageExists = conv.messages?.some(
+                  (m: any) => m.id === parsedMessage.id
+                );
+                return {
+                  ...conv,
+                  messages: messageExists
+                    ? conv.messages.map((m: any) =>
+                        m.id === parsedMessage.id
+                          ? { ...m, status: parsedMessage.status, score: parsedMessage.score }
+                          : m
+                      )
+                    : [...(conv.messages || []), parsedMessage],
+                };
+              }
+              return conv;
+            })
+          );
         }
       } catch (error) {
         console.error("Error parsing status update:", error);

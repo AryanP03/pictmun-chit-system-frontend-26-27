@@ -50,20 +50,12 @@ const BoardModal = () => {
   }
   //Add functionality that refresh after every 45 second
   return (
-    <div className="w-full bg-background p-6">
+    <div className="w-full h-full max-h-full flex flex-col min-h-0 overflow-hidden bg-background p-5 sm:p-6">
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 flex-shrink-0">
         <h2 className="text-2xl font-semibold">Chit Details</h2>
 
-        <div>
-          <Button
-            onClick={handleClose}
-            className="size-8"
-            variant={"outline"}
-            size={"icon"}
-          >
-            <XIcon className="size-5" />
-          </Button>
+        <div className="flex items-center gap-2">
           {newMessages && (
             <TooltipProvider>
               <Tooltip>
@@ -85,10 +77,22 @@ const BoardModal = () => {
               </Tooltip>
             </TooltipProvider>
           )}
+          <Button
+            onClick={handleClose}
+            className="size-8"
+            variant={"outline"}
+            size={"icon"}
+          >
+            <XIcon className="size-5" />
+          </Button>
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div
+        id="eb-chit-details-list"
+        data-testid="eb-chit-details-list"
+        className="flex-1 min-h-0 overflow-y-auto pr-2 flex flex-col gap-3"
+      >
         {message.messages?.map((messge: any, index: number) => (
           <EBMessage
             key={index}

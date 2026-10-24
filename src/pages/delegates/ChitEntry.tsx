@@ -44,42 +44,42 @@ const ChitEntry = () => {
   };
 
   return (
-    <div className="flex justify-start px-6 md:px-12 lg:px-16 mt-8 md:mt-12 lg:mt-16">
+    <div className="flex justify-start px-5 sm:px-8 md:px-12 lg:px-16 pt-2 sm:pt-2.5 md:pt-3 pb-2 w-full h-full overflow-y-auto">
       <Card className="max-w-2xl w-full bg-transparent border-0 shadow-none p-0">
-        <CardHeader className="px-0 pb-6">
-          <CardTitle className="text-2xl md:text-3xl font-bold text-foreground">
-            New Chit
+        <CardHeader className="px-0 py-0 pb-1.5 sm:pb-2">
+          <CardTitle className="text-2xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight">
+            Create New Chit
           </CardTitle>
         </CardHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <CardContent className="px-0 space-y-6">
+        <form onSubmit={handleSubmit}>
+          <CardContent className="px-0 space-y-2 sm:space-y-2.5">
             {/* Via EB Checkbox */}
-            <div className="flex items-center gap-3 p-4 bg-muted/30 rounded-lg border-l-4 border-l-primary">
+            <div className="flex items-center gap-2.5 sm:gap-3 px-3 py-1.5 sm:px-3.5 sm:py-2 bg-muted/30 rounded-lg border-l-4 border-l-primary">
               <Checkbox
                 id="via-eb"
-                className="size-5"
+                className="size-4.5 sm:size-5"
                 checked={isViaEb}
                 onCheckedChange={() => setIsViaEb(!isViaEb)}
               />
               <Label
                 htmlFor="via-eb"
-                className="text-base font-medium cursor-pointer"
+                className="text-sm sm:text-base font-medium cursor-pointer select-none"
               >
                 Send message via EB
               </Label>
             </div>
 
             {/* Recipient Selection */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label
                 htmlFor="recipient"
-                className="text-base font-semibold text-foreground"
+                className="text-sm sm:text-base font-semibold text-foreground"
               >
                 Recipient
               </Label>
               <Select onValueChange={setRecipientId} value={recipientId}>
-                <SelectTrigger className="h-12 text-base">
+                <SelectTrigger className="h-9.5 sm:h-10 text-sm sm:text-base">
                   <SelectValue
                     className="w-full"
                     placeholder={
@@ -100,10 +100,10 @@ const ChitEntry = () => {
             </div>
 
             {/* Message */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label
                 htmlFor="message"
-                className="text-base font-semibold text-foreground"
+                className="text-sm sm:text-base font-semibold text-foreground"
               >
                 Message
               </Label>
@@ -112,19 +112,18 @@ const ChitEntry = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 required
-                rows={6}
+                rows={4}
                 placeholder="Enter your message..."
-                className="min-h-32 resize-none p-4 text-base leading-relaxed"
+                className="h-24 sm:h-28 md:h-30 max-h-40 resize-none [field-sizing:fixed] overflow-y-auto p-2.5 sm:p-3 text-sm sm:text-base leading-relaxed"
               />
             </div>
           </CardContent>
 
-          <CardFooter className="px-0 pt-6">
+          <CardFooter className="px-0 pt-2 sm:pt-2.5">
             <Button
               type="submit"
               disabled={isLoading}
-              size="lg"
-              className="text-base px-8 py-3 font-semibold min-w-40 md:w-full"
+              className="h-9.5 sm:h-10 text-sm sm:text-base px-8 font-semibold w-full"
             >
               {isLoading ? "Sending..." : "Submit Chit"}
             </Button>

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import {
   ChartBarIncreasing,
+  Download,
   Mail,
   Plus,
   Send,
@@ -36,6 +37,11 @@ export const Sidebar = () => {
       name: "Chit Marks",
       path: "/marks",
       icon: <ChartBarIncreasing className="size-5" />,
+    },
+    {
+      name: "Download All Chits",
+      path: "/eb-download",
+      icon: <Download className="size-5" />,
     },
     {
       name: "Create User",
@@ -78,7 +84,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className="hidden sticky left-0 top-[61px] md:flex flex-col w-64 p-5 bg-[#0B2B26] border-r border-[#A67C52]/30 h-[calc(100vh-61px)] max-h-[calc(100vh-61px)] shadow-xl justify-between">
+    <aside className="hidden md:flex flex-col w-64 p-5 bg-[#0B2B26] border-r border-[#A67C52]/30 h-full max-h-full flex-shrink-0 shadow-xl justify-between overflow-y-auto">
       <ul className="flex flex-col items-start gap-2.5 w-full">
         <li className="px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#A67C52]/70">
           Navigation
@@ -88,10 +94,10 @@ export const Sidebar = () => {
           sidebarLinks.slice(0, 3).map((link, index) => renderLinkItem(link, index))}
 
         {authUser?.role === "EB" &&
-          sidebarLinks.slice(3, 5).map((link, index) => renderLinkItem(link, index))}
+          sidebarLinks.slice(3, 6).map((link, index) => renderLinkItem(link, index))}
 
         {authUser?.role === "ADMIN" &&
-          sidebarLinks.slice(5, 7).map((link, index) => renderLinkItem(link, index))}
+          sidebarLinks.slice(6, 8).map((link, index) => renderLinkItem(link, index))}
       </ul>
 
       {authUser && (
