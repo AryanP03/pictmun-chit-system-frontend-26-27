@@ -1,5 +1,5 @@
 import { useAuthContext } from "../context/AuthContext";
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,9 +9,11 @@ import {
 import { Link } from "react-router-dom";
 import LogoutButton from "./LogoutButton";
 import { MobileNavbar } from "./MobileNavbar";
+import { getDelegateFlag } from "../lib/flagMapping";
 
 export const Topbar = () => {
   const { authUser } = useAuthContext();
+  const flagInfo = getDelegateFlag(authUser?.role, authUser?.portfolio);
 
   return (
     <header className="px-5 md:px-8 py-2.5 bg-[#0B2B26] border-b border-[#A67C52]/35 w-full flex items-center justify-between sticky top-0 z-40 backdrop-blur-md shadow-lg transition-colors">
@@ -38,7 +40,14 @@ export const Topbar = () => {
         {authUser && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Avatar className="size-10 cursor-pointer border-2 border-[#A67C52]/60 hover:border-[#A67C52] hover:shadow-[0_0_12px_rgba(166,124,82,0.4)] transition-all">
+              <Avatar className="size-10 cursor-pointer border-2 border-[#A67C52]/60 hover:border-[#A67C52] hover:shadow-[0_0_12px_rgba(166,124,82,0.4)] transition-all overflow-hidden rounded-full">
+                {flagInfo ? (
+                  <AvatarImage
+                    src={flagInfo.flagUrl}
+                    alt={flagInfo.name}
+                    className="size-full object-contain"
+                  />
+                ) : null}
                 <AvatarFallback className="text-base font-bold bg-[#174A3A] text-[#F2E9DB]">
                   {authUser.portfolio.charAt(0).toUpperCase()}
                 </AvatarFallback>

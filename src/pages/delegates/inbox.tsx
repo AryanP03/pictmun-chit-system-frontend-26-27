@@ -1,21 +1,22 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useGetConversation } from "../../hooks/useGetConversation";
 import useListenMessages from "../../hooks/useListenMessages";
-import { useAuthContext } from "../../context/AuthContext";
 import { Loading } from "../../components/Loading";
 import { NoMessage } from "../../components/NoMessage";
 import { formatMessageTime } from "../../lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Button } from "../../components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { useChitNotifications } from "../../hooks/useChitNotifications";
+import { NotificationBanner } from "../../components/NotificationBanner";
 
 const ITEMS_PER_PAGE = 15;
 
 const Inbox = () => {
   const { conversations, loading } = useGetConversation();
   const [currentPage, setCurrentPage] = useState(1);
-  const { authUser } = useAuthContext();
+  useListenMessages();
+  const { permission, requestPermission, registerExistingMessages } = useChitNotifications();
 
   const sortedConversations = useMemo(() => {
     if (!Array.isArray(conversations)) return [];
@@ -47,6 +48,13 @@ const Inbox = () => {
       });
   }, [conversations]);
 
+  // Seed existing message IDs so old messages never trigger notifications
+  useEffect(() => {
+    if (sortedConversations?.length > 0) {
+      registerExistingMessages(sortedConversations);
+    }
+  }, [sortedConversations, registerExistingMessages]);
+
   const totalPages = Math.ceil(sortedConversations.length / ITEMS_PER_PAGE);
 
   const paginatedConversations = useMemo(() => {
@@ -56,15 +64,13 @@ const Inbox = () => {
     );
   }, [sortedConversations, currentPage]);
 
-  if (authUser) {
-    useListenMessages();
-  }
   if (loading) {
     return <Loading classes="w-full h-full" />;
   }
   return (
-    <div className="p-5 w-full">
-      <div className="mb-5 flex flex-col items-start justify-center gap-2">
+    <div className="p-5 w-full h-full max-h-full flex flex-col min-h-0 overflow-hidden">
+      {/* Fixed Heading / Introduction */}
+      <div className="mb-4 flex flex-col items-start justify-center gap-1.5 flex-shrink-0">
         <h2 className="text-2xl md:text-3xl font-semibold">Inbox</h2>
         <p className="text-muted-foreground text-sm">
           {sortedConversations?.length > 0
@@ -72,16 +78,44 @@ const Inbox = () => {
             : "You have no conversations in your inbox"}
         </p>
       </div>
-      {sortedConversations?.length === 0 && <NoMessage />}
 
-      <ul className="border rounded-lg mx-auto w-[90%] md:w-full divide-y divide-y-muted-foreground max-w-5xl">
-        {paginatedConversations.map((conversation, index: number) => (
-          <ListItem key={index} conversation={conversation} />
-        ))}
-      </ul>
+      {/* Browser Notification Permission Banner */}
+      <div className="flex-shrink-0">
+        <NotificationBanner
+          permission={permission}
+          onRequestPermission={requestPermission}
+        />
+      </div>
 
+      {/* Vertically scrollable listing area */}
+      <div
+        id="conversation-list"
+        data-testid="conversation-list"
+        className="flex-1 min-h-0 overflow-y-auto pr-1"
+      >
+        {sortedConversations?.length === 0 && (
+          <div className="w-full flex flex-col items-center">
+            <NoMessage />
+            <div
+              id="golden-divider"
+              data-testid="golden-divider"
+              className="border border-border rounded-lg w-[90%] md:w-full max-w-5xl"
+            />
+          </div>
+        )}
+
+        {sortedConversations?.length > 0 && (
+          <ul className="border border-border rounded-lg mx-auto w-[90%] md:w-full divide-y divide-y-muted-foreground max-w-5xl">
+            {paginatedConversations.map((conversation, index: number) => (
+              <ListItem key={index} conversation={conversation} />
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Fixed Pagination Controls if > ITEMS_PER_PAGE */}
       {sortedConversations.length > ITEMS_PER_PAGE && (
-        <div className="flex items-center w-full mx-auto max-w-4xl justify-end gap-4 mt-4">
+        <div className="flex-shrink-0 flex items-center w-full mx-auto max-w-5xl justify-end gap-4 pt-4">
           <Button
             variant={"outline"}
             size={"icon"}
@@ -130,17 +164,27 @@ const ListItem: React.FC<ListItemProps> = ({ conversation }) => {
         </div>
 
         <div className="flex-1">
-          <div className="flex justify-between">
-            <span className="font-semibold text-primary text-xl">
-              {latestMessage?.sender?.portfolio || "Unknown Sender"}
-            </span>
-            <span className="text-xs text-muted-foreground">
+          <div className="flex justify-between items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-semibold text-primary text-xl">
+                {latestMessage?.sender?.portfolio || "Unknown Sender"}
+              </span>
+              {latestMessage?.isViaEB && (
+                <span
+                  data-testid="via-eb-badge"
+                  className="py-0.5 px-2.5 rounded-full text-primary bg-slate-800 text-xs font-medium"
+                >
+                  Via EB
+                </span>
+              )}
+            </div>
+            <span className="text-xs text-muted-foreground whitespace-nowrap">
               {latestMessage?.createdAt
                 ? formatMessageTime(latestMessage?.createdAt)
                 : "No Date"}
             </span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-1">
             <span className="font-semibold text-muted-foreground text-sm line-clamp-2">
               {latestMessage?.body || "No message available"}
             </span>

@@ -1,4 +1,4 @@
-import { Mail, Menu, Send, Plus, ChartBarIncreasing, User } from "lucide-react";
+import { Mail, Menu, Send, Plus, ChartBarIncreasing, Download, User } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -38,6 +38,11 @@ export const MobileNavbar = () => {
       name: "Chit Marks",
       icon: <ChartBarIncreasing className="size-5" />,
       path: "/marks",
+    },
+    {
+      name: "Download All Chits",
+      icon: <Download className="size-5" />,
+      path: "/eb-download",
     },
     {
       name: "Create User",
@@ -97,7 +102,7 @@ export const MobileNavbar = () => {
             {authUser?.role === "DELEGATE" &&
               sidebarLinks.slice(0, 3).map((link, index) => renderMobileItem(link, index))}
             {authUser?.role === "EB" &&
-              sidebarLinks.slice(3, 5).map((link, index) => renderMobileItem(link, index))}
+              sidebarLinks.slice(3, 6).map((link, index) => renderMobileItem(link, index))}
             {authUser?.role === "ADMIN" &&
               sidebarLinks.slice(5, 6).map((link, index) => renderMobileItem(link, index))}
 

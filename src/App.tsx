@@ -15,9 +15,12 @@ import { Sidebar } from "./components/Sidebar";
 import { Loading } from "./components/Loading";
 import SentMessages from "./pages/delegates/SentMessages";
 import MarksPage from "./pages/eb/MarksPage";
+import DownloadChits from "./pages/eb/DownloadChits";
+import { useChitNotifications } from "./hooks/useChitNotifications";
 
 const App: React.FC = () => {
   const { isLoading, authUser } = useAuthContext();
+  useChitNotifications();
 
   if (isLoading) {
     return <Loading />;
@@ -25,11 +28,11 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div className={`flex flex-col w-full min-h-screen bg-background ${authUser ? "pb-4" : ""}`}>
+      <div className="flex flex-col w-full h-[100dvh] max-h-[100dvh] overflow-hidden bg-background">
         <Topbar />
-        <div className="flex flex-1">
+        <div className="flex flex-1 min-h-0 overflow-hidden">
           {authUser && <Sidebar />}
-          <div className={authUser ? "w-full md:w-5/6" : "w-full"}>
+          <main className="flex-1 min-w-0 min-h-0 flex flex-col overflow-hidden relative">
             <Routes>
               <Route
                 path="/eb-board"
@@ -56,6 +59,16 @@ const App: React.FC = () => {
                 element={
                   authUser && authUser.role === "EB" ? (
                     <MarksPage />
+                  ) : (
+                    <Navigate to="/login" />
+                  )
+                }
+              />
+              <Route
+                path="/eb-download"
+                element={
+                  authUser && authUser.role === "EB" ? (
+                    <DownloadChits />
                   ) : (
                     <Navigate to="/login" />
                   )
@@ -109,7 +122,7 @@ const App: React.FC = () => {
               />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-          </div>
+          </main>
         </div>
         <Toaster />
       </div>
