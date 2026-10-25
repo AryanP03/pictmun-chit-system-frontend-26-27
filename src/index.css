@@ -306,3 +306,29 @@ body {
 .animate-float-subtle {
   animation: float-subtle 3.2s ease-in-out infinite;
 }
+
+/* Custom MUN Gold & Emerald Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(11, 43, 38, 0.45);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(166, 124, 82, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(166, 124, 82, 0.25);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(166, 124, 82, 0.85);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(166, 124, 82, 0.5) rgba(11, 43, 38, 0.45);
+}
