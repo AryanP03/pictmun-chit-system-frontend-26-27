@@ -8,6 +8,7 @@ import {
   Upload,
   UserPlus,
   User,
+  Users,
 } from "lucide-react";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -47,6 +48,11 @@ export const Sidebar = () => {
       name: "Create User",
       path: "/create-user",
       icon: <UserPlus className="size-5" />,
+    },
+    {
+      name: "Accounts Directory",
+      path: "/all-users",
+      icon: <Users className="size-5" />,
     },
     {
       name: "CSV Upload",
@@ -97,7 +103,7 @@ export const Sidebar = () => {
           sidebarLinks.slice(3, 6).map((link, index) => renderLinkItem(link, index))}
 
         {authUser?.role === "ADMIN" &&
-          sidebarLinks.slice(6, 8).map((link, index) => renderLinkItem(link, index))}
+          sidebarLinks.slice(6, 9).map((link, index) => renderLinkItem(link, index))}
       </ul>
 
       {authUser && (

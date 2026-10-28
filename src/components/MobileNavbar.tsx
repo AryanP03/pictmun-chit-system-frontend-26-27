@@ -49,6 +49,11 @@ export const MobileNavbar = () => {
       path: "/create-user",
       icon: <Plus className="size-5" />,
     },
+    {
+      name: "Accounts Directory",
+      path: "/all-users",
+      icon: <User className="size-5" />,
+    },
   ];
   const { authUser } = useAuthContext();
   const url = useLocation().pathname;
@@ -104,7 +109,7 @@ export const MobileNavbar = () => {
             {authUser?.role === "EB" &&
               sidebarLinks.slice(3, 6).map((link, index) => renderMobileItem(link, index))}
             {authUser?.role === "ADMIN" &&
-              sidebarLinks.slice(5, 6).map((link, index) => renderMobileItem(link, index))}
+              sidebarLinks.slice(6, 8).map((link, index) => renderMobileItem(link, index))}
 
             {authUser && (
               <li className="w-full pt-4 mt-2 border-t border-[#A67C52]/20">
