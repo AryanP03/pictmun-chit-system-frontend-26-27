@@ -19,33 +19,33 @@ const BoardInbox = () => {
   const { conversations: boardMessages, loading } = useFetchEbUserMessages();
   const sortedConversations = Array.isArray(boardMessages)
     ? [...boardMessages]
-        .filter((conversation) => conversation.messages?.length > 0) // Exclude conversations with no messages
-        .sort((a, b) => {
-          const latestMessageA = a.messages.reduce(
-            (latest: any, message: any) => {
-              return new Date(message.createdAt).getTime() >
-                new Date(latest.createdAt).getTime()
-                ? message
-                : latest;
-            },
-            a.messages[0]
-          );
+      .filter((conversation) => conversation.messages?.length > 0) // Exclude conversations with no messages
+      .sort((a, b) => {
+        const latestMessageA = a.messages.reduce(
+          (latest: any, message: any) => {
+            return new Date(message.createdAt).getTime() >
+              new Date(latest.createdAt).getTime()
+              ? message
+              : latest;
+          },
+          a.messages[0]
+        );
 
-          const latestMessageB = b.messages.reduce(
-            (latest: any, message: any) => {
-              return new Date(message.createdAt).getTime() >
-                new Date(latest.createdAt).getTime()
-                ? message
-                : latest;
-            },
-            b.messages[0]
-          );
+        const latestMessageB = b.messages.reduce(
+          (latest: any, message: any) => {
+            return new Date(message.createdAt).getTime() >
+              new Date(latest.createdAt).getTime()
+              ? message
+              : latest;
+          },
+          b.messages[0]
+        );
 
-          return (
-            new Date(latestMessageB?.createdAt).getTime() -
-            new Date(latestMessageA?.createdAt).getTime()
-          );
-        })
+        return (
+          new Date(latestMessageB?.createdAt).getTime() -
+          new Date(latestMessageA?.createdAt).getTime()
+        );
+      })
     : [];
 
   const pendingConv = sortedConversations.filter((conversation: any) =>

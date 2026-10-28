@@ -10,6 +10,7 @@ import { Topbar } from "./components/Topbar";
 import BoardModal from "./pages/eb/EBModal";
 import BoardInbox from "./pages/eb/BoardInbox";
 import CreateEntries from "./pages/admin/CreateEntries";
+import AccountsDirectory from "./pages/admin/AccountsDirectory";
 import Profile from "./pages/Profile";
 import { Sidebar } from "./components/Sidebar";
 import { Loading } from "./components/Loading";
@@ -80,6 +81,8 @@ const App: React.FC = () => {
                   authUser ? (
                     authUser.role === "EB" ? (
                       <Navigate to="/eb-board" />
+                    ) : authUser.role === "ADMIN" ? (
+                      <Navigate to="/create-user" />
                     ) : (
                       <Inbox />
                     )
@@ -103,6 +106,16 @@ const App: React.FC = () => {
                 element={
                   authUser && authUser.role === "ADMIN" ? (
                     <CreateEntries />
+                  ) : (
+                    <Navigate to="/login" />
+                  )
+                }
+              />
+              <Route
+                path="/all-users"
+                element={
+                  authUser && authUser.role === "ADMIN" ? (
+                    <AccountsDirectory />
                   ) : (
                     <Navigate to="/login" />
                   )
