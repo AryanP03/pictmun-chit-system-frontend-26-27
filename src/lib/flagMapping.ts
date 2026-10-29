@@ -34,6 +34,15 @@ const COUNTRY_MAP: Record<string, { code: string; name: string }> = {
   "commonwealth of australia": { code: "au", name: "Commonwealth of Australia" },
   "australia": { code: "au", name: "Australia" },
 
+  // Bahrain
+  "kingdom of bahrain": { code: "bh", name: "Kingdom of Bahrain" },
+  "bahrain": { code: "bh", name: "Bahrain" },
+
+  // Bangladesh
+  "people's republic of bangladesh": { code: "bd", name: "People's Republic of Bangladesh" },
+  "peoples republic of bangladesh": { code: "bd", name: "People's Republic of Bangladesh" },
+  "bangladesh": { code: "bd", name: "Bangladesh" },
+
   // Belgium
   "kingdom of belgium": { code: "be", name: "Kingdom of Belgium" },
   "belgium": { code: "be", name: "Belgium" },
@@ -54,6 +63,10 @@ const COUNTRY_MAP: Record<string, { code: string; name: string }> = {
   // Colombia
   "republic of colombia": { code: "co", name: "Republic of Colombia" },
   "colombia": { code: "co", name: "Colombia" },
+
+  // Cuba
+  "republic of cuba": { code: "cu", name: "Republic of Cuba" },
+  "cuba": { code: "cu", name: "Cuba" },
 
   // Democratic Republic of the Congo
   "democratic republic of the congo": { code: "cd", name: "Democratic Republic of the Congo" },
@@ -88,6 +101,10 @@ const COUNTRY_MAP: Record<string, { code: string; name: string }> = {
   "islamic republic of iran": { code: "ir", name: "Islamic Republic of Iran" },
   "iran": { code: "ir", name: "Iran" },
 
+  // Iraq
+  "republic of iraq": { code: "iq", name: "Republic of Iraq" },
+  "iraq": { code: "iq", name: "Iraq" },
+
   // Israel
   "state of israel": { code: "il", name: "State of Israel" },
   "israel": { code: "il", name: "Israel" },
@@ -115,6 +132,14 @@ const COUNTRY_MAP: Record<string, { code: string; name: string }> = {
   "republic of korea": { code: "kr", name: "Republic of Korea" },
   "south korea": { code: "kr", name: "South Korea" },
   "rok": { code: "kr", name: "Republic of Korea" },
+
+  // Latvia
+  "republic of latvia": { code: "lv", name: "Republic of Latvia" },
+  "latvia": { code: "lv", name: "Latvia" },
+
+  // Liberia
+  "republic of liberia": { code: "lr", name: "Republic of Liberia" },
+  "liberia": { code: "lr", name: "Liberia" },
 
   // Malaysia
   "malaysia": { code: "my", name: "Malaysia" },
@@ -162,6 +187,10 @@ const COUNTRY_MAP: Record<string, { code: string; name: string }> = {
   // Palestine
   "state of palestine": { code: "ps", name: "State of Palestine" },
   "palestine": { code: "ps", name: "Palestine" },
+
+  // Philippines
+  "republic of the philippines": { code: "ph", name: "Republic of the Philippines" },
+  "philippines": { code: "ph", name: "Philippines" },
 
   // Qatar
   "state of qatar": { code: "qa", name: "State of Qatar" },
@@ -238,6 +267,12 @@ const COUNTRY_MAP: Record<string, { code: string; name: string }> = {
   // Venezuela
   "bolivarian republic of venezuela": { code: "ve", name: "Bolivarian Republic of Venezuela" },
   "venezuela": { code: "ve", name: "Venezuela" },
+
+  // Vietnam
+  "socialist republic of viet nam": { code: "vn", name: "Socialist Republic of Viet Nam" },
+  "socialist republic of vietnam": { code: "vn", name: "Socialist Republic of Viet Nam" },
+  "viet nam": { code: "vn", name: "Viet Nam" },
+  "vietnam": { code: "vn", name: "Vietnam" },
 };
 
 // 2. Authoritative Party Identifier -> Verified Processed Image Asset
@@ -255,7 +290,12 @@ export type PartyId =
   | "AAP"
   | "CPIM"
   | "MNS"
-  | "JKNC";
+  | "JKNC"
+  | "JDU"
+  | "RJD"
+  | "DMK"
+  | "JMM"
+  | "BJD";
 
 const PARTY_ASSET_MAP: Record<PartyId, { flagUrl: string; name: string }> = {
   BJP: {
@@ -314,9 +354,29 @@ const PARTY_ASSET_MAP: Record<PartyId, { flagUrl: string; name: string }> = {
     flagUrl: "/political_parties_flags/processed/jknc.png",
     name: "Jammu & Kashmir National Conference (JKNC)",
   },
+  JDU: {
+    flagUrl: "/political_parties_flags/processed/jdu.png",
+    name: "Janata Dal (United) (JD(U))",
+  },
+  RJD: {
+    flagUrl: "/political_parties_flags/processed/rjd.png",
+    name: "Rashtriya Janata Dal (RJD)",
+  },
+  DMK: {
+    flagUrl: "/political_parties_flags/processed/dmk.png",
+    name: "Dravida Munnetra Kazhagam (DMK)",
+  },
+  JMM: {
+    flagUrl: "/political_parties_flags/processed/jmm.png",
+    name: "Jharkhand Mukti Morcha (JMM)",
+  },
+  BJD: {
+    flagUrl: "/political_parties_flags/processed/bjd.png",
+    name: "Biju Janata Dal (BJD)",
+  },
 };
 
-// 3. Centralized Explicit Leader-to-Party Mapping (31 leaders)
+// 3. Centralized Explicit Leader-to-Party Mapping (39 leaders)
 const LEADER_TO_PARTY_MAP: Record<string, PartyId> = {
   // BJP Leaders
   "narendra modi": "BJP",
@@ -332,6 +392,9 @@ const LEADER_TO_PARTY_MAP: Record<string, PartyId> = {
   "kiren rijiju": "BJP",
   "devendra fadnavis": "BJP",
   "yogi adityanath": "BJP",
+  "shivraj singh chouhan": "BJP",
+  "himanta biswa sarma": "BJP",
+  "ujjwal nikam": "BJP",
 
   // TDP Leader
   "n. chandrababu naidu": "TDP",
@@ -360,8 +423,9 @@ const LEADER_TO_PARTY_MAP: Record<string, PartyId> = {
   // NCP-SP Leader
   "supriya sule": "NCP_SP",
 
-  // Shiv Sena (UBT) Leader
+  // Shiv Sena (UBT) Leaders
   "uddhav thackeray": "SHIV_SENA_UBT",
+  "sanjay raut": "SHIV_SENA_UBT",
 
   // AIMIM Leader
   "asaduddin owaisi": "AIMIM",
@@ -370,8 +434,10 @@ const LEADER_TO_PARTY_MAP: Record<string, PartyId> = {
   "k. chandrashekar rao": "BRS",
   "k chandrashekar rao": "BRS",
 
-  // AAP Leader
+  // AAP Leaders
   "arvind kejriwal": "AAP",
+  "raghav chaddha": "AAP",
+  "raghav chadha": "AAP",
 
   // CPI(M) Leader
   "pinarayi vijayan": "CPIM",
@@ -381,6 +447,25 @@ const LEADER_TO_PARTY_MAP: Record<string, PartyId> = {
 
   // JKNC Leader
   "omar abdullah": "JKNC",
+
+  // JD(U) Leader
+  "nitish kumar": "JDU",
+
+  // RJD Leader
+  "tejashwi yadav": "RJD",
+
+  // DMK Leaders
+  "m. k. stalin": "DMK",
+  "m k stalin": "DMK",
+  "mk stalin": "DMK",
+  "kanimozhi karunanidhi": "DMK",
+  "kanimozhi": "DMK",
+
+  // JMM Leader
+  "hemant soren": "JMM",
+
+  // BJD Leader
+  "naveen patnaik": "BJD",
 
   // Shiv Sena (Shinde) Leader
   "eknath shinde": "SHIV_SENA_SHINDE",
@@ -460,6 +545,28 @@ const PARTY_NAME_ALIASES: Record<string, PartyId> = {
   "jknc": "JKNC",
   "jammu & kashmir national conference": "JKNC",
   "jammu and kashmir national conference": "JKNC",
+
+  // JD(U)
+  "jdu": "JDU",
+  "jd(u)": "JDU",
+  "janata dal (united)": "JDU",
+  "janata dal united": "JDU",
+
+  // RJD
+  "rjd": "RJD",
+  "rashtriya janata dal": "RJD",
+
+  // DMK
+  "dmk": "DMK",
+  "dravida munnetra kazhagam": "DMK",
+
+  // JMM
+  "jmm": "JMM",
+  "jharkhand mukti morcha": "JMM",
+
+  // BJD
+  "bjd": "BJD",
+  "biju janata dal": "BJD",
 };
 
 /**
