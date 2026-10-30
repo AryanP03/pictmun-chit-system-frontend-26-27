@@ -62,8 +62,8 @@ const SentMessages = () => {
         <h2 className="text-2xl md:text-3xl font-semibold">Sent Chits</h2>
         <p className="text-muted-foreground text-sm">
           {sortedConversations?.length > 0
-            ? `You have ${sortedConversations.length} conversations in your inbox`
-            : "You have no conversations in your inbox"}
+            ? `You have ${sortedConversations.length} sent chits`
+            : "You have sent no chits"}
         </p>
       </div>
 
@@ -75,7 +75,7 @@ const SentMessages = () => {
       >
         {sortedConversations?.length === 0 && (
           <div className="w-full flex flex-col items-center">
-            <NoMessage />
+            <NoMessage description="It looks like you haven’t sent any chits yet. Once you do, they will appear here." />
             <div
               id="golden-divider"
               data-testid="golden-divider"
